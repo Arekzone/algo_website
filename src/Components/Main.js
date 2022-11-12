@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, InputGroup, Label, Input, Card, CardBody } from "reactstrap";
 
-function Main() {
+function Main({kategorie}) {
 
     const [items, setItems] = useState([
         {
@@ -24,18 +24,14 @@ function Main() {
         ,checked: !item.checked}: item);
         setItems(listItems);
     }
-    const showitems = items.map((item) => {
+    const showitems = kategorie.map((kategoria) => {
         return (
-            <Card key={item.id}>
+            <Card key={kategoria.id}>
                 <CardBody>
-                   <Input
-                   type="checkbox"
-                   onChange={()=>handleCheck(item.id)}
-                   checked={item.checked}>
-                   </Input>
-                   {item.id}
-                    {item.item}
-                    <Button>Delete</Button>
+                
+                   {kategoria.kategoria}
+                    {kategoria.text}
+                  
                 </CardBody>
             
             </Card>
@@ -43,6 +39,7 @@ function Main() {
     })
 
     return (
+        
         <div>
             <h1>Inspiring sculptors:</h1>
             <input
