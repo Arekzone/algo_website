@@ -18,8 +18,7 @@ function Materialy({kategorie,setKategorie}){
         return (
             <Card key={kategoria.id} onClick={(e) => setSecondKategoria(kategoria)} >
                 <CardBody>
-                   {kategoria.kategoria}
-                  
+                   {kategoria.kategoria}                  
                 </CardBody>
             
             </Card>
@@ -38,6 +37,8 @@ function Materialy({kategorie,setKategorie}){
                             Treść
                         </CardHeader>
                         {kategoria1.text}
+                        <h2>{kategoria1.text}</h2>
+                        <p></p>
                 </div>
             </div>
         </div>

@@ -6,9 +6,10 @@ import {React ,useEffect,useState} from "react";
 import Zadania from './Components/Zadania.js';
 import Materiały from "./Components/Materiały.js";
 import api from './api/posts.js';
-import PanelAdmina from "./Components/PanelAdmina.js";
+import PanelAdmina from "./ComponentyAdmin/PanelAdmina.js";
 import ZadaniaDetails from "./Components/ZadaniaDetails.js";
 import ZadaniaDetails5 from "./Components/ZadaniaDetails5.js";
+import ShowAllUsers from "./ComponentyAdmin/ShowAllUsers.js";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [kategorie,setKategorie]=useState([]);
   const [zadania,setZadania]=useState([]);
+
 
 
   useEffect(()=>{
@@ -54,6 +56,8 @@ function App() {
     }
     fetchZadania();
   },[])
+
+
 
 
 

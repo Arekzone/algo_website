@@ -4,7 +4,7 @@ import {Card, Col, ModalBody, ModalFooter, Nav, NavItem,Row,CardBody,NavLink, Na
   DropdownMenu,
   DropdownItem,
   NavbarText, Navbar, Input,Form,FormInput,Label,Button,Modal,ModalHeader, Jumbotron, FormGroup} from 'reactstrap';
-import {React, Component, useState} from 'react';
+import {React, Component, useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Zadania from './Zadania.js';
 
@@ -14,6 +14,10 @@ function Header({isOpen, setIsOpen}){
 
   const [modal, setModal] = useState(false);
   const[username,setUserName]=useState('');
+  const [formData, setFormData] = useState({
+    title: "",
+    body: ""
+  })
 
         const mystyle = {
           color: "white",
@@ -56,12 +60,7 @@ function Header({isOpen, setIsOpen}){
                 toggle={toggle2}
                 >
                 <ModalBody>
-                <Form onSubmit={handleLogin}>
-                       <Label>UserName</Label>
-                       <Input type="text" id="username" name="username"
-                       innerRef={(input)=>setUserName(input)}/>
-                        <Button type="submit" value="submit" color="primary">Login</Button>
-                    </Form>
+                
                 </ModalBody>
             </Modal>
           
