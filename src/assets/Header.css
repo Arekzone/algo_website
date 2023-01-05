@@ -1,0 +1,8 @@
+.glowing-button {
+    transition: all 0.5s; /* Add a transition effect when the button is hovered over */
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* No shadow by default */
+  }
+  
+  .glowing-button:hover {
+    box-shadow: 0 0 20px #4628cb; /* Add a yellow shadow when hovered over */
+  }

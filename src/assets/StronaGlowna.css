@@ -1,0 +1,57 @@
+
+.stronaglowna_body {
+    background: linear-gradient(to right, #3f51b5, #ccb262); /* Set the two colors */
+   
+  }
+  .stronaglowna_body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+  .stronaglowna_body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%; /* Set the width to half of the body */
+    height: 100%; /* Set the height to the full height of the body */
+    background: linear-gradient(to top right, transparent 50%, #77a3e6 50%);  z-index: -1;
+}
+
+  .third-row {
+    position: relative; /* Set the position to relative */
+  }
+  
+  .third-row::after {
+    content: '';
+    position: absolute;
+    bottom: 1;
+    left: 0;
+    width: 100%; /* Set the width to the full width of the row */
+    height: 200px; /* Set the height of the bar */
+    background-color: #ffffff; /* Set the background color to grey */
+    z-index: -1;
+  }
+  .forth-row{
+    height: 200px;
+  }
+  /* plaace something in the middle of the page footer {
+    background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  } */
+  footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    height: 12vh;
+    justify-content: space-between;
+    padding: 1rem;
+    text-align: center;
+  }
+  
