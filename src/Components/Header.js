@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import Zadania from './Zadania.js';
 import "../assets/Header.css";
 import Registration from "./Registration";
+import Login from './Login.js';
+import logo from "../assets/logomniejsze.png";
 
 
 
@@ -22,6 +24,7 @@ function Header({ isOpen, setIsOpen }) {
     title: "",
     body: ""
   })
+  const[islogged,setisLogged]=useState(false);
   const [registerModal, setRegisterModal] = useState(false);
 
   const mystyle = {
@@ -43,14 +46,19 @@ function Header({ isOpen, setIsOpen }) {
   const toggle2 = () => setModal(!modal);
   const toggle3 = () => setRegisterModal(!registerModal);
 
-
-
-
   const toggle = () => setIsOpen(!isOpen);
+
+  const toggle4=()=>{
+    localStorage.removeItem('token');
+    setisLogged(null);
+  };
+
+
+
   return (
     <div>
       <Navbar style={mystyle} className="navbar-expand-sm bg-dark">
-        <NavbarBrand ><Link to="/">tutaj wstawic znaczek</Link></NavbarBrand>
+        <NavbarBrand ><Link to="/"><img src={logo} alt ="logo"/></Link></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto ml-auto" navbar>
@@ -59,10 +67,12 @@ function Header({ isOpen, setIsOpen }) {
             <NavItem >Hello2</NavItem>
             </Nav>
             <NavbarText>
-            <Button color="primary " outline
-              onClick={toggle2} className="mx-2 glowing-button">Login</Button>
+            <Button color="primary" outline
+              onClick={toggle2} className="mx-2 glowing-button" disabled={localStorage.getItem('token') !== null}>Login</Button>
             <Button color="primary" outline
               onClick={toggle3} className="mx-2 glowing-button">Register</Button>
+              <Button color="primary" outline
+              onClick={toggle4} className="mx-2 glowing-button" disabled={localStorage.getItem('token') == null}>Logout</Button>
           </NavbarText>
 
         </Collapse>
@@ -73,15 +83,7 @@ function Header({ isOpen, setIsOpen }) {
       >
         <ModalHeader toggle={toggle2}>Login</ModalHeader>
         <ModalBody className="p-3">
-          <form>
-            <Label htmlFor="username">Username:</Label>
-            <input type="text" id="username" name="username" />
-            <br />
-            <Label htmlFor="password">Password:</Label>
-            <input type="password" id="password" name="password" />
-            <br />
-            <button type="submit">Submit</button>
-          </form>
+          <Login/>
         </ModalBody>
       </Modal>
       <Modal isOpen={registerModal} 
@@ -89,7 +91,7 @@ function Header({ isOpen, setIsOpen }) {
       
       >
   <ModalHeader toggle={toggle3}>Register</ModalHeader>
-  <ModalBody>
+  <ModalBody style={{width:'500px'}}>
     <Registration/>
   </ModalBody>
 </Modal>

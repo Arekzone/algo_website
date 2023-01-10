@@ -18,7 +18,7 @@ function AllUsers(){
     const columns =[{
         field: "id",
         headerName:"ID",
-    },{field:"username",headerName:"username",flex:1,cellClassName: "name-column"},{field:"email", headerName:"email",flex: 1},
+    },{field:"username",headerName:"username",flex:0,cellClassName: "name-column"},{field:"email", headerName:"email",flex: 0},
         {field:"firstName", headerName:"firstName"},{field:"lastName",headerName:"lastName"}];
 
     useEffect(()=>{
@@ -37,13 +37,9 @@ function AllUsers(){
 },[])
 
     return(
-        <Box m="20px">
+        <Box m="10px">
             <Header2 title = "Users" subtitle="All users"/>
-            <Box m="40px 0 0 0" height="75vh" sx={{
-                "& .MuiDataGrid-root":{
-
-                }
-            }}>
+            <Box sx={{ height: 400, width: '50%' }}>
             <DataGrid
                 rows={users}
                 columns={columns}

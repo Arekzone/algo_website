@@ -4,6 +4,8 @@ import apiRequest from '../api/apiRequest.js';
 import api from '../api/posts';
 import {Typography} from "@mui/material"
 import Header2 from './Header2.jsx';
+import {Input} from "reactstrap"
+import '../ComponentyAdmin/admincss.css';
 
 class ZadaniaForm extends Component {
   constructor(props) {
@@ -12,7 +14,9 @@ class ZadaniaForm extends Component {
       checked: false,
       text: '',
       wynikUzytkownika: '',
-      poprawnyWynik: ''
+      poprawnyWynik: '',
+      kategoria:'',
+      nazwaZadania:''
     };
   }
 
@@ -33,15 +37,24 @@ class ZadaniaForm extends Component {
     .catch(error => {
       console.error(error);
     })
+    this.setState({
+        checked: false,
+        text: '',
+        wynikUzytkownika: '',
+        poprawnyWynik: '',
+        kategoria:'',
+        nazwaZadania:''
+      });
+  
   }
 
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <Header2 title="Zadania" subtitle="Dodaj zadanie do bazy danych"/>
+<Header2 title="Zadania" subtitle="Dodaj zadanie do bazy danych"/>
         <label>
-          Checked:
+        <Header2 subtitle="Zostaw to pole puste"/>
           <input
             type="checkbox"
             name="checked"
@@ -51,17 +64,19 @@ class ZadaniaForm extends Component {
         </label>
         <br />
         <label>
-          Text:
-          <input
-            type="textbox"
+          Treść Zadania:
+          <Input
+          className='my-textarea'
+            type="textarea"
             name="text"
+            size="lg"
             value={this.state.text}
             onChange={this.handleChange}
           />
         </label>
         <br />
         <label>
-          Wynik Uzytkownika:
+        <Header2 subtitle="Zostaw to pole puste"/>
           <input
             type="text"
             name="wynikUzytkownika"
@@ -76,6 +91,26 @@ class ZadaniaForm extends Component {
             type="text"
             name="poprawnyWynik"
             value={this.state.poprawnyWynik}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Kategoria:
+          <input
+            type="text"
+            name="kategoria"
+            value={this.state.kategoria}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+         Nazwa zadania:
+          <input
+            type="text"
+            name="nazwaZadania"
+            value={this.state.nazwaZadania}
             onChange={this.handleChange}
           />
         </label>

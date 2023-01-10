@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../api/posts.js';
 
 function RegistrationForm() {
   const [username, setUsername] = useState('');
@@ -16,20 +17,16 @@ function RegistrationForm() {
       return;
     }
     // Send a request to the server to register
-    fetch('/register', {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password, firstName, lastName }),
-      headers: { 'Content-Type': 'application/json' },
+    api.post('/auth/register', {
+        email: email,
+        username:username,
+        firstName: firstName,
+        lastName:lastName,
+        password:password
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Something went wrong');
-      })
       .then(data => {
         // Redirect the user to the login page
-        window.location.href = '/login';
+        window.location.href = '/zadania';
       })
       .catch(error => {
         setError(error.message);
@@ -37,7 +34,7 @@ function RegistrationForm() {
   }
 
   return (
-    <form onSubmit={handleRegistration}>
+    <form style={{width:'32vh'}}onSubmit={handleRegistration}>
       {error && <p className="error">{error}</p>}
       <label htmlFor="username">Username:</label>
       <input

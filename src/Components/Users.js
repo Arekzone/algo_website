@@ -4,6 +4,7 @@ import api from "../api/posts";
 
 function Users(){
     const [users,setUsers] = useState();
+  
 
 
     useEffect(()=>{
@@ -11,7 +12,7 @@ function Users(){
         const controller = new AbortController();
         const getUsers = async()=>{
             try{
-                const reponse = await api.get('/admin/users',{
+                const response = await api.get('/admin/users',{
                     signal:controller.signal
                 })
                 console.log(response.data);
@@ -33,10 +34,12 @@ function Users(){
             {users?.length
             ?(
                 <ul>
-                    {users.map((user,i))=><li key={i}>{user?.username}</li>}
+                    {users.map((user,i)=><li key={i}>{user?.username}</li>)}
                 </ul>
             )  : <p>No users to display</p>
             }
+           
+            <br/>
         </article>
 
     )

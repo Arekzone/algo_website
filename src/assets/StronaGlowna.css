@@ -1,4 +1,15 @@
 
+body{
+  background: linear-gradient(to right, #3f51b5, #ccb262); /* Set the two colors */
+}
+.rows{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.dark-bg{
+  background-color: #333;
+  color: #fff;
+}
 .stronaglowna_body {
     background: linear-gradient(to right, #3f51b5, #ccb262); /* Set the two colors */
    
@@ -17,9 +28,15 @@
     height: 100%; /* Set the height to the full height of the body */
     background: linear-gradient(to top right, transparent 50%, #77a3e6 50%);  z-index: -1;
 }
+.lead{
+  
+}
 
   .third-row {
     position: relative; /* Set the position to relative */
+  }
+  .fifth-row{
+    height: 280px;
   }
   
   .third-row::after {

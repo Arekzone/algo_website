@@ -1,9 +1,12 @@
+import { RectangleRounded } from '@mui/icons-material';
+import { Sidebar, Nav, NavItem, Button, CardText,Card } from 'reactstrap';
+
 import {useState,useContext} from "react";
 import {ProSidebar,Menu,MenuItem} from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import {Box,IconButton,Typography,useTheme} from "@mui/material";
 import{Link} from "react-router-dom";
-import{tokens} from "../../theme";
+import{tokens} from "../scenes/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -16,6 +19,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import logo from "../assets/logowieksze.png";
 
 
 const Item=({title,to,icon,selected,setSelected})=>{
@@ -30,7 +34,7 @@ const Item=({title,to,icon,selected,setSelected})=>{
 }
 
 
-function Sidebar(){
+function ZadaniaSidebar({zadania}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const[isCollapsed,setIsCollapsed]=useState(false);
@@ -75,8 +79,8 @@ function Sidebar(){
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  PANEL ADMINA
+                <Typography variant="h5" color={colors.grey[100]}>
+                  Zwiń
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -86,97 +90,100 @@ function Sidebar(){
           </MenuItem>
                 {!isCollapsed &&(
                     <Box mb="25px">
-                        
+                        <Box display="flex" justifyContent="center" alignItems="center">
+                            <img
+                            alt="profile-user"
+                            width="100px"
+                            height="100px"
+                            src={logo}
+                            style={{cursor:"pointer",borderRadius:"50%"}}
+                            />
+                        </Box>
                     <Box>
-                        <Typography variant = "h2" color={colors.grey[100]} fontWeight="bold" sx={{m: "10px 0 10px 60px"}}>Arek</Typography>
-                        <Typography variant ="h5" color={colors.greenAccent[500]} sx={{m: "10px 0 10px 70px"}}>Admin</Typography>
+                        <Typography variant = "h4" color={colors.grey[100]} fontWeight="bold" sx={{m: "10px 0 10px 50px"}}>Kategorie</Typography>
+                        <Typography variant ="h5" color={colors.greenAccent[500]} sx={{m: "10px 0 10px 20px"}}>Wybierz kategorie</Typography>
                     </Box>
                     </Box>
                 )}
 
                     {/* Menu items */}
                     <Box paddingLeft={isCollapsed? undefined:"10px"}>
+                    <Typography
+                         variant="h6"
+                         colors = {colors.grey[300]}
+                         sx={{m:"15px 0 5px 10px"}}
+                        >Przejdź do materiałów</Typography>
                         <Item 
-                        title="Menu"
-                        to="/dashboard"
+                        title="Materialy"
+                        to="/materialy"
                         icon={<HomeOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
-                        <Typography
+                          <Typography
                          variant="h6"
                          colors = {colors.grey[300]}
-                         sx={{m:"15px 0 5px 20px"}}
-                        >Data</Typography>
+                         sx={{m:"15px 0 5px 10px"}}
+                        >Przejdź do zadań</Typography>
                         <Item 
-                        title="Team"
-                        to="/team"
+                        title="Wszystkie"
+                        to="/zadania"
                         icon={<PeopleOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="Kontakt"
-                        to="/contacts"
+                        title="Tablice"
+                        to="/tablice"
                         icon={<ContactsOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="Salda"
-                        to="/invoices"
+                        title="Linked List"
+                        to="/linkedlist"
                         icon={<ReceiptOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
-                        <Typography
-                         variant="h6"
-                         colors = {colors.grey[300]}
-                         sx={{m:"15px 0 5px 20px"}}
-                        >Pages</Typography>
                         <Item 
-                        title="Formularze"
-                        to="/form"
+                        title="2-D Arrays"
+                        to="/2darrays"
                         icon={<PersonOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="Kalendarz"
-                        to="/calendar"
+                        title="Strings"
+                        to="/strings"
                         icon={<CalendarTodayOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="FAQ"
-                        to="/faq"
+                        title="Sortowanie"
+                        to="/sortowanie"
                         icon={<HelpOutlineOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
-                        <Typography
-                         variant="h6"
-                         colors = {colors.grey[300]}
-                         sx={{m:"15px 0 5px 20px"}}
-                        >Wykresy</Typography>
                         <Item 
-                        title="Diagram Słupkowy "
-                        to="/bar"
+                        title="Rekurencja"
+                        to="/rekurencja"
                         icon={<BarChartOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                          <Item 
-                        title="Diagram Kołowy"
-                        to="/pie"
+                        title="Queue i Stack"
+                        to="/queueistack"
                         icon={<BarChartOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="Wykres liniowy"
-                        to="/line"
+                        title="Backtracking"
+                        to="/backtracking"
                         icon={<TimelineOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
@@ -196,4 +203,4 @@ function Sidebar(){
 
     );
 }
-export default Sidebar;
+export default ZadaniaSidebar;

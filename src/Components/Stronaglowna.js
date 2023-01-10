@@ -13,12 +13,10 @@ function StronaGlowna(){
         <Col xs="12">
             <h1 className="display-3">Algonauka</h1>
             <p className="lead">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
+            oferuje szereg zasobów i samouczków zaprojektowanych, aby pomóc użytkownikom rozwinąć solidne zrozumienie algorytmów i ich działania. Niezależnie od tego, czy jesteś początkujący i chcesz nauczyć się podstaw, czy jesteś doświadczonym programistą chcącym pogłębić swoją wiedzę, mamy coś dla Ciebie            </p>
             <hr className="my-2" />
             <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+Przejdź do zadań i sprawdź się            </p>
             <p className="lead">
               <Button color="primary" a href="/zadania">Zobacz zadania</Button>
             </p>
@@ -40,25 +38,31 @@ function StronaGlowna(){
         <Row className="forth-row">
         <h1>Welcome to My Landing Page</h1>
             <p className="lead">
+            Nasze treści obejmują szeroki zakres tematów, w tym algorytmy sortowania, algorytmy wyszukiwania, struktury danych i inne. Zapewniamy szczegółowe wyjaśnienia i przykłady, aby pomóc użytkownikom zrozumieć koncepcje i zobaczyć, jak można je zastosować w praktyce.            </p>
+        </Row>
+        <Row className="fifth-row">
+        <h1>Welcome to My Landing Page</h1>
+            <p className="lead">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
         </Row>
         <Row>
         <Col xs="6">
           <div className="element-container">
-            <h3>Element 1</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3>Zaloguj się</h3>
+            <p>Jeśli masz już konto naciśnij przycisk na dole.</p>
             <Button>Button 1</Button>
           </div>
         </Col>
         <Col xs="6">
           <div className="element-container">
-            <h3>Element 2</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <Button>Button 2</Button>
+            <h3>Zarejestruj się</h3>
+            <p>Jeśli chcesz się zarejestrować naciśnij przycisk na dole.</p>
+            <Button >Button 2</Button>
           </div>
         </Col>
       </Row>
+      &nbsp;
         </Container>
         <footer className="bg-dark text-white py-3">
       <Container>

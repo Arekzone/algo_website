@@ -15,6 +15,7 @@ import { BrowserRouter, Route,Routes,useLocation} from 'react-router-dom';
 import {Grid} from "@mui/material";
 import ZadaniaForm from './ZadaniaForm.js';
 import AllUsers from './AllUsers.js';
+import Wykres from './Wykres.js';
 
 
 // import Dashboard from '../scenes/dashboard/index.jsx';
@@ -50,20 +51,26 @@ function PanelAdmina({kategorie}){
       <ThemeProvider theme={theme}>
         <CssBaseline/> 
             <Grid container>
-                <Grid item xs={2}> 
+                <Grid item xs={3}> 
                  <Sidebar isSidebar={isSidebar} />
                  </Grid>
-                 <Grid item xs={10}>
+                 <Grid item xs={9}>
                  <Topbar setIsSidebar={setIsSidebar} />
                  <Dashboard/>
+                 <Grid id="top-row" container spacing={50}>
+                 <Grid item xs={4}>
                     <ZadaniaForm/>
+                    </Grid>
+                    <Grid item xs={7}>
                     <AllUsers/>
+                    <Wykres/>
+                    </Grid>
+                    </Grid>
                     </Grid>
             </Grid>
             </ThemeProvider>
       </ColorModeContext.Provider> 
-            
-          
+        
             
         )
         
