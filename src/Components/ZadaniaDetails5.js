@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { useEffect } from "react";
-import { Card, CardBody,Button,Container,Col,Row } from "reactstrap";
+import { Card, CardBody, Button, Container, Col, Row } from "reactstrap";
 import Compiler from "./Compiler";
 import api from "../api/posts";
 import { Typography } from "@mui/material";
@@ -8,137 +8,142 @@ import { green } from "@mui/material/colors";
 import "./ZadaniaDetails.css";
 import useStatewithDep from "./useStatewithDep";
 import '../assets/StronaGlowna.css';
+import { BloodtypeOutlined } from "@mui/icons-material";
 function ZadaniaDetails5({ zadania }) {
-    const [kompilacja,setWynik2]=useState();
-    const [clientId,setClientId]=useState("897c8c64f5b07bb600f4c166e7f64162");
-    const [clientSecret,setClientSecret]=useState("62db5bd0ba4aa2547508e59f6871439fcf79d66e913d85da5117d6092824f3c5");
-    const[script,setScript]=useState("");
-    const[language,setLanguage]=useState("nodejs");
-    const[versionIndex,setVersionIndex]=useState("1");
-    const[output,setoutput]=useState([]);
-    const[user,setUser]=useState("");
-    const[userId,setUserId]=useState("");
+    const [kompilacja, setWynik2] = useState();
+    const [clientId, setClientId] = useState("897c8c64f5b07bb600f4c166e7f64162");
+    const [clientSecret, setClientSecret] = useState("62db5bd0ba4aa2547508e59f6871439fcf79d66e913d85da5117d6092824f3c5");
+    const [script, setScript] = useState("");
+    const [language, setLanguage] = useState("nodejs");
+    const [versionIndex, setVersionIndex] = useState("1");
+    const [output, setoutput] = useState([]);
+    const [user, setUser] = useState("");
+    const [userId, setUserId] = useState("");
     // stworzony hook aby pobierac stan wczseniejszego componentu 
-    const[wynikZadania,setWynikZadania]=useStatewithDep(...zadania);
-    const[poprawnyWynik, setPoprawnyWynik]=useState('');
-    const[isActive,setIsActive]=useState(false);
-    const[komentarze,setKomentarze]=useState([]);
-    const[zadanieId1,setZadanieId]=useState('');
+    const [wynikZadania, setWynikZadania] = useStatewithDep(...zadania);
+    const [poprawnyWynik, setPoprawnyWynik] = useState('');
+    const [isActive, setIsActive] = useState(false);
+    const [komentarze, setKomentarze] = useState([]);
+    const [zadanieId1, setZadanieId] = useState('');
     const [komentarz, setKomentarz] = useState('');
 
-    useEffect(()=>{
+    useEffect(() => {
         setPoprawnyWynik(wynikZadania.poprawnyWynik);
         setZadanieId(wynikZadania.id);
         console.log(zadanieId1);
+    }, [])
+
+    const base_id = "/zadania/komentarze";
+
+    useEffect(()=>{
+        setScript(wynikZadania.kategoria);
+
     },[])
-
-    const base_id="/zadania/komentarze";
-
     function handleKomentarze(event) {
         event.preventDefault();
-        const fetchKomentarze=async()=>{
-          try{
-            const response = await api.get(base_id+'/'+zadanieId1);
-            setKomentarze(response.data)
-            console.log(komentarze);
-            console.log(poprawnyWynik)
-    
-          }catch(err){
-            if(err.response){
-              console.log(err.response.data);
-              console.log(err.response.status);
-              console.log(err.response.headers);
-            }else{
-              console.log(`Error: ${err.message}`);
+        const fetchKomentarze = async () => {
+            try {
+                const response = await api.get(base_id + '/' + zadanieId1);
+                setKomentarze(response.data)
+                console.log(komentarze);
+                console.log(poprawnyWynik)
+
+            } catch (err) {
+                if (err.response) {
+                    console.log(err.response.data);
+                    console.log(err.response.status);
+                    console.log(err.response.headers);
+                } else {
+                    console.log(`Error: ${err.message}`);
+                }
             }
-          }
         }
         fetchKomentarze();
 
-      }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await api.get("/auth/me", {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-              },
-            });
-            setUser(response.data);
-            setUserId(JSON.stringify(response.data.id));
-            
-            
-          } catch (err) {
-            console.error(err);
-            
-          }
+            try {
+                const response = await api.get("/auth/me", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setUser(response.data);
+                setUserId(JSON.stringify(response.data.id));
+
+
+            } catch (err) {
+                console.error(err);
+
+            }
         };
         fetchData();
-        
-      }, []);
+
+    }, []);
     const handleChange = event => {
         setScript(event.target.value);
-      };
+    };
 
-    
-      const handleSelect = event => {
+
+    const handleSelect = event => {
         setLanguage(event.target.value);
-      };
+    };
 
-       function handleCompilation(event) {
+    function handleCompilation(event) {
         event.preventDefault();
         // Validate form fields
         // Send a request to the server to compile
-      api.post('/kompilator', {
+        api.post('/kompilator', {
             script: script,
             language: language,
             versionIndex: versionIndex,
             clientId: clientId,
             clientSecret: clientSecret,
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-              },
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
         })
-        .then(response => {
-            console.log(response);
-            console.log(response.data);
-            setoutput(response.data);
-            if(output.output===poprawnyWynik){
-                setIsActive(true);
-            }
-           
-           
-          })
-          .catch(error => {
-            console.error(error);
-          })
-        }
-       
-        const showkomentarze=komentarze.map((zadanie)=>{
-            return (
-                <Card key={zadanie.id} >
-                    <CardBody>
-                        {zadanie.komentarz}
-                    </CardBody>
-                    <CardBody>
-                        {zadanie.localUser.username}
-                    </CardBody>
-                    <CardBody>
-                    </CardBody>
-    
-                </Card>)
-        });
+            .then(response => {
+                console.log(response);
+                console.log(response.data);
+                setoutput(response.data);
+                if (output.output === poprawnyWynik) {
+                    setIsActive(true);
+                }
+
+
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
+    const showkomentarze = komentarze.map((zadanie) => {
+        return (
+            <Card className="mb-3" key={zadanie.id} >
+                <CardBody className="outline">
+                    {zadanie.komentarz}
+                </CardBody>
+                <CardBody className="text-muted">
+                    <strong>Author:</strong> {zadanie.localUser.username}
+                </CardBody>
+                <CardBody>
+                </CardBody>
+
+            </Card>)
+    });
 
     const showitems = zadania.map((zadanie) => {
         return (
-            <Card key={zadanie.id} >
+            <Card
+             key={zadanie.id} >
                 <CardBody>
-                    {zadanie.text}
+                    {zadanie.kategoria}
                 </CardBody>
                 <CardBody>
-                    {zadanie.poprawnyWynik}
-                    {zadanie.kategoria}
+                   {zadanie.text}
                 </CardBody>
                 <CardBody>
                 </CardBody>
@@ -147,65 +152,118 @@ function ZadaniaDetails5({ zadania }) {
         )
     });
 
-    const basee_id="/zadania/komentarze";
+    const basee_id = "/zadania/komentarze";
 
-    function dodajKomentarz(event){
+    function dodajKomentarz(event) {
         event.preventDefault();
-        api.post(base_id+'/'+zadanieId1+'/'+userId, {
-            komentarz:komentarz,
+        api.post(base_id + '/' + zadanieId1 + '/' + userId, {
+            komentarz: komentarz,
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-              },
+            },
         })
-        .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.error(error);
-          })
-          setKomentarz("");
-          dodajKomentarz();
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+        setKomentarz("");
+        dodajKomentarz();
+    }
+    const formStyles = {
+        form: {
+            width: '50%',
+            margin: '0 auto',
+            textAlign: 'center',
+            padding: '20px'
+        },
+        textarea: {
+            width: '100%',
+            padding: '10px',
+            fontSize: '16px',
+            marginBottom: '10px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            resize: 'none'
+        },
+        button: {
+            padding: '10px 20px',
+            backgroundColor: '#2196f3',
+            color: '#fff',
+            borderRadius: '5px',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '16px'
+        }
     }
 
+    function Success({ output, wynikZadania }) {
+        return (
+            <div>
+                {output.output === wynikZadania.poprawnyWynik ? (
+                    <Button color="success">Poprawny Wynik, Kliknij by przesłać do bazy danych</Button>
+                ) : (
+                    <Typography variant="h5">Błędny wynik</Typography>
+                )}
+
+            </div>
+        );
+    }
     
 
-    return (
-        <>
-        <Container>
-        <Row>
-        <Col sm="4">
+return (
+    <>
+        <Col sm="3">
+            &nbsp;
+            &nbsp;
+            <h1>Treść zadania</h1>
             <h1>{showitems}</h1>
-            <h1>{showkomentarze}</h1>
-            <h1>Posortuj tablicę wartościami rosnąco</h1>
-           <h1>Twój wynik: {output.output}</h1>
-           <h1>Podpowiedź: Jeśli nie znasz składni Javascript użyj swojego ulubionego języka i użyj narzędzia, które zmieni Twój kod na kod Javascript</h1>
-            {isActive ? <Button color="success">Poprawny Wynik, Kliknij by przesłać do bazy danych</Button> : <Typography variant="h5">Błędny wynik</Typography>}
         </Col>
-            <div className="col-7">
-            <Button onClick={handleKomentarze}>Załaduj komentarze użytkoników do zadań</Button>
-            <Button color="primary" outline
-             className="mx-2 glowing-button" disabled={user.isPremium === null}>Podejrzyj odpowiedź</Button>
-                <form onSubmit={handleCompilation} className="compiler-form">
-                <textarea value={script} onChange={handleChange} />
-      <div className="language-select">
-      <Typography variant ="h5" color={green} sx={{m: "10px 0 10px 70px"}}>Napisz swoją odpowiedź w Javascript i kliknij Submit</Typography>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-    <form onSubmit={dodajKomentarz}>
-            <textarea value={komentarz} onChange={e => setKomentarz(e.target.value)} />
-            <button type="submit">Dodaj komentarz</button>
-        </form>
-              </div>
-            
-            </Row>
-            </Container>
-           
-        
-            
-        </>
+        <Container>
+            <Row>
+                <Col sm="4">
+                    <Button color="primary" outline
+                        className="mx-2 glowing-button">Podejrzyj odpowiedź</Button>
+                    <h1>{output.output}</h1>
+                    <h1><Success output={output} wynikZadania={wynikZadania} /></h1>
+                    <p>Podpowiedź: Jeśli nie znasz składni Javascript użyj swojego ulubionego języka i użyj narzędzia, które zmieni Twój kod na kod Javascript</p>
+                </Col>
+                <div className="col-7">
+                    <h5 style={{marginLeft: "80px", color:"#a30b0d"}}>Nie usuwaj tego co jest napisane, tylko napisz swoją funkcje nad</h5>
+                    <form onSubmit={handleCompilation} className="compiler-form">
+                        <textarea value={script} onChange={handleChange} />
+                        <div className="language-select">
+                            <Typography variant="h5" color={green} sx={{ m: "10px 0 10px 0px" }} align="center">Napisz swoją odpowiedź w Javascript i kliknij Submit</Typography>
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                    &nbsp;
+                </div>
+                <Col sm="10">
+                    <form style={formStyles.form} onSubmit={dodajKomentarz}>
+                        <textarea style={formStyles.textarea} value={komentarz} onChange={e => setKomentarz(e.target.value)} />
+                        <button style={formStyles.button} type="submit">Dodaj komentarz do zadania</button>
+                    </form>
+                    <Button size="1g" onClick={handleKomentarze}>Załaduj komentarze użytkowników do zadania</Button>
+                    <h1>{showkomentarze}</h1>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
 
-    )
+                </Col>
+
+   
+
+            </Row>
+        </Container>
+&nbsp;
+
+
+    </>
+
+)
 }
 
 export default ZadaniaDetails5;

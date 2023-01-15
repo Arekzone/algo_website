@@ -19,7 +19,7 @@ import Login from "./Components/Login.js";
 import { TokenContext } from "./loginContext/AuthProvider.js";
 import SidebarZadania from "./Components/SidebarZadania.js";
 import ZadaniaTablice from "./Components/ZadaniaTablice.js";
-
+import PrivateRoute from "./Components/PrivateRoute.js";
 
 
 function App() {
@@ -27,27 +27,12 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [kategorie,setKategorie]=useState([]);
   const [zadania,setZadania]=useState([]);
+  const[userwithquotes,setUserwithQ]=useState("");
+  const[username,setUserName]=useState("");
+  const[isTrue,setisTrue]=useState(false);
 
-  
 
-  useEffect(()=>{
-    const fetchPosts=async()=>{
-      try{
-        const response = await api.get('/hello');
-        setKategorie(response.data)
 
-      }catch(err){
-        if(err.response){
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-        }else{
-          console.log(`Error: ${err.message}`);
-        }
-      }
-    }
-    fetchPosts();
-  },[])
   useEffect(()=>{
     const fetchZadania=async()=>{
       try{
@@ -66,23 +51,27 @@ function App() {
     }
     fetchZadania();
   },[])
- 
-  
 
+  
+  
   return (
   
     <BrowserRouter>
       <div>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
         <Routes>
-        <Route exact path="/admin" element={<PanelAdmina kategorie={kategorie} />}></Route>
         <Route path="/" element={<StronaGlowna/>}></Route>
         <Route path="/main" element={<Main kategorie={kategorie} />}></Route>
           <Route path="/zadania" element={<Zadania zadania={zadania}/>}></Route>
           <Route path="/materialy" element={<Materiały kategorie={kategorie} setKategorie={setKategorie} />}></Route>
-          <Route exact path="/admin" element={<PanelAdmina kategorie={kategorie} />}></Route>
+        <Route exact path="/admin" element={<PanelAdmina kategorie={kategorie} />}></Route>
+       <Route path="zadania/552" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 552)} />} />
+          <Route path="zadania/902" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 902)} />} />
+          <Route path="zadania/3" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 3)} />} />
+          <Route path="zadania/4" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 4)} />} />
+          <Route path="zadania/5" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 5)} />} />
           <Route path="zadania/552" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 552)} />} />
-          <Route path="zadania/752" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 752)} />} />
+          <Route path="zadania/902" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 902)} />} />
           <Route path="zadania/3" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 3)} />} />
           <Route path="zadania/4" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 4)} />} />
           <Route path="zadania/5" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 5)} />} />

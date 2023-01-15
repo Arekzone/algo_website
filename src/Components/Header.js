@@ -52,6 +52,23 @@ function Header({ isOpen, setIsOpen }) {
     localStorage.removeItem('token');
     setisLogged(null);
   };
+  const navLinkStyle = {
+    color: 'gray',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    padding: '10px 20px',
+    '&:hover': {
+      backgroundColor: 'lightblue',
+      color: 'white',
+    }
+  };
+  const navItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '50px',
+    width: '150px'
+  };
 
 
 
@@ -62,9 +79,8 @@ function Header({ isOpen, setIsOpen }) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto ml-auto" navbar>
-            <NavItem> <Link to="/zadania">Zadania</Link></NavItem>
-            <NavItem> <Link to="/materialy">Materiały</Link></NavItem>
-            <NavItem >Hello2</NavItem>
+            <NavItem style={navItemStyle}> <Link to="/zadania"style={navLinkStyle}>Zadania</Link></NavItem>
+            <NavItem style={navItemStyle}> <Link to="/materialy"style={navLinkStyle}>Materiały</Link></NavItem>
             </Nav>
             <NavbarText>
             <Button color="primary" outline

@@ -3,7 +3,7 @@ import {React, Component, useState} from 'react';
 import {Card,CardBody} from 'reactstrap';
 import apiRequest from '../api/apiRequest.js';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import DodajZadanie from './DodajZadanie.js';
 import { ColorModeContext,useMode } from '../scenes/theme.js';
@@ -16,6 +16,8 @@ import {Grid} from "@mui/material";
 import ZadaniaForm from './ZadaniaForm.js';
 import AllUsers from './AllUsers.js';
 import Wykres from './Wykres.js';
+import api from "../api/posts.js";
+import { ConstructionOutlined } from '@mui/icons-material';
 
 
 // import Dashboard from '../scenes/dashboard/index.jsx';
@@ -35,6 +37,7 @@ function PanelAdmina({kategorie}){
     const [theme,colorMode]=useMode();
     const [isSidebar, setIsSidebar] = useState(true);
 
+
     const mystyle = {
         width: "500px",
   height: "150px",
@@ -44,6 +47,11 @@ function PanelAdmina({kategorie}){
   fontSize: "16px",
   resize: "none",
       }
+     
+
+  
+
+
      
 
         return(
