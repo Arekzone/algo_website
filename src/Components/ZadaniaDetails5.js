@@ -72,6 +72,7 @@ function ZadaniaDetails5({ zadania }) {
                 });
                 setUser(response.data);
                 setUserId(JSON.stringify(response.data.id));
+                console.log(userId);
 
 
             } catch (err) {

@@ -5,7 +5,9 @@ import {tokens} from "../scenes/theme";
 import '../assets/StronaGlowna.css';
 
 function StronaGlowna(){
- 
+  let input = "Hello World!";
+  let encoded = btoa(input);
+  console.log(encoded); 
     return(
         <div className='stronaglowna_body'>
             <Container>
