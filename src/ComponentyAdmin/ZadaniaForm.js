@@ -16,7 +16,8 @@ class ZadaniaForm extends Component {
       wynikUzytkownika: '',
       poprawnyWynik: '',
       kategoria:'',
-      nazwaZadania:''
+      nazwaZadania:'',
+      odpowiedz:''
     };
   }
 
@@ -43,7 +44,8 @@ class ZadaniaForm extends Component {
         wynikUzytkownika: '',
         poprawnyWynik: '',
         kategoria:'',
-        nazwaZadania:''
+        nazwaZadania:'',
+        odpowiedz:''
       });
   
   }
@@ -111,6 +113,18 @@ class ZadaniaForm extends Component {
             type="text"
             name="nazwaZadania"
             value={this.state.nazwaZadania}
+            onChange={this.handleChange}
+          />
+        </label>
+        <br />
+        <label>
+         Odpowiedz(przekonwertuj na base64 przed wysłaniem):
+          <Input
+          className='my-textarea'
+            type="textarea"
+            name="odpowiedz"
+            size="lg"
+            value={this.state.odpowiedz}
             onChange={this.handleChange}
           />
         </label>

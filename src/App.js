@@ -65,7 +65,7 @@ function App() {
           <Route path="/zadania" element={<Zadania zadania={zadania}/>}></Route>
           <Route path="/materialy" element={<Materiały kategorie={kategorie} setKategorie={setKategorie} />}></Route>
         <Route exact path="/admin" element={<PanelAdmina kategorie={kategorie} />}></Route>
-       <Route path="zadania/552" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 552)} />} />
+       <Route path="zadania/1" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 1)} />} />
           <Route path="zadania/902" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 902)} />} />
           <Route path="zadania/3" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 3)} />} />
           <Route path="zadania/4" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 4)} />} />

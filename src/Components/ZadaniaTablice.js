@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function ZadaniaTablice({zadania}){
 
-    const showitems = zadania.filter(zadanie=>zadanie.kategoria==="tablice").map(zadanie=> {
+    const showitems = zadania.filter(zadanie=>zadanie.kategoria==="arrays").map(zadanie=> {
         return (
             <Card key={zadanie.id} className="my-2 justify-content-center">
               <Link to={`/zadania/${zadanie.id}`} style={{ textDecoration: 'none' }}>

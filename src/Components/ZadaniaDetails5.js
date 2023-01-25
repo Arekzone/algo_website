@@ -9,6 +9,7 @@ import "./ZadaniaDetails.css";
 import useStatewithDep from "./useStatewithDep";
 import '../assets/StronaGlowna.css';
 import { BloodtypeOutlined } from "@mui/icons-material";
+import axios from "axios";
 function ZadaniaDetails5({ zadania }) {
     const [kompilacja, setWynik2] = useState();
     const [clientId, setClientId] = useState("897c8c64f5b07bb600f4c166e7f64162");
@@ -26,11 +27,19 @@ function ZadaniaDetails5({ zadania }) {
     const [komentarze, setKomentarze] = useState([]);
     const [zadanieId1, setZadanieId] = useState('');
     const [komentarz, setKomentarz] = useState('');
+    const[skrypt, setSkrypt]=useState("");
+    const[zakodowanySkrypt,setZakodowanySkrypt]=useState("");
+    const [showAnswer, setShowAnswer] = useState(false);
+    const[odpowiedzEncoded,setOdpowiedzEncoded]=useState("");
+    const[odpowiedz,setOdpowiedz]=useState("");
+    const [encodedAnswer, setEncodedAnswer] = useState('');
+    const [podejrzyjZadanie, setPodejrzyjZadanie] = useState('');
 
     useEffect(() => {
         setPoprawnyWynik(wynikZadania.poprawnyWynik);
         setZadanieId(wynikZadania.id);
         console.log(zadanieId1);
+        setPodejrzyjZadanie(wynikZadania.odpowiedz);
     }, [])
 
     const base_id = "/zadania/komentarze";
@@ -85,6 +94,11 @@ function ZadaniaDetails5({ zadania }) {
     }, []);
     const handleChange = event => {
         setScript(event.target.value);
+        setSkrypt(event.target.value);
+        
+  let encoded = btoa(skrypt);
+  setZakodowanySkrypt(encoded);
+  console.log(encoded); 
     };
 
 
@@ -96,12 +110,8 @@ function ZadaniaDetails5({ zadania }) {
         event.preventDefault();
         // Validate form fields
         // Send a request to the server to compile
-        api.post('/kompilator', {
-            script: script,
-            language: language,
-            versionIndex: versionIndex,
-            clientId: clientId,
-            clientSecret: clientSecret,
+        axios.post('http://localhost:8081/kompilator2', {
+            string: zakodowanySkrypt,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
@@ -135,6 +145,8 @@ function ZadaniaDetails5({ zadania }) {
 
             </Card>)
     });
+
+    
 
     const showitems = zadania.map((zadanie) => {
         return (
@@ -211,6 +223,11 @@ function ZadaniaDetails5({ zadania }) {
             </div>
         );
     }
+
+    const handleButtonClick = () => {
+        setShowAnswer(!showAnswer);
+      }
+    
     
 
 return (
@@ -224,8 +241,14 @@ return (
         <Container>
             <Row>
                 <Col sm="4">
-                    <Button color="primary" outline
-                        className="mx-2 glowing-button">Podejrzyj odpowiedź</Button>
+                 <Button color="primary" outline className="mx-2 glowing-button" onClick={handleButtonClick}>Podejrzyj odpowiedź</Button>
+      {showAnswer && (
+        <Card>
+          <CardBody>
+            <h1>{atob(podejrzyjZadanie)}</h1>
+          </CardBody>
+        </Card>
+      )}
                     <h1>{output.output}</h1>
                     <h1><Success output={output} wynikZadania={wynikZadania} /></h1>
                     <p>Podpowiedź: Jeśli nie znasz składni Javascript użyj swojego ulubionego języka i użyj narzędzia, które zmieni Twój kod na kod Javascript</p>
@@ -233,7 +256,7 @@ return (
                 <div className="col-7">
                     <h5 style={{marginLeft: "80px", color:"#a30b0d"}}>Nie usuwaj tego co jest napisane, tylko napisz swoją funkcje nad</h5>
                     <form onSubmit={handleCompilation} className="compiler-form">
-                        <textarea value={script} onChange={handleChange} />
+                        <textarea value={script} onChange={handleChange} onBlur={handleChange} />
                         <div className="language-select">
                             <Typography variant="h5" color={green} sx={{ m: "10px 0 10px 0px" }} align="center">Napisz swoją odpowiedź w Javascript i kliknij Submit</Typography>
                         </div>
