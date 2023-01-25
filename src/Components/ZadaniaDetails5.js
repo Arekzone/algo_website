@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { useEffect } from "react";
-import { Card, CardBody, Button, Container, Col, Row } from "reactstrap";
+import { Card, CardBody, Button, Container, Col, Row,CardText } from "reactstrap";
 import Compiler from "./Compiler";
 import api from "../api/posts";
 import { Typography } from "@mui/material";
@@ -17,7 +17,7 @@ function ZadaniaDetails5({ zadania }) {
     const [script, setScript] = useState("");
     const [language, setLanguage] = useState("nodejs");
     const [versionIndex, setVersionIndex] = useState("1");
-    const [output, setoutput] = useState([]);
+    const [output, setoutput] = useState('');
     const [user, setUser] = useState("");
     const [userId, setUserId] = useState("");
     // stworzony hook aby pobierac stan wczseniejszego componentu 
@@ -34,6 +34,7 @@ function ZadaniaDetails5({ zadania }) {
     const[odpowiedz,setOdpowiedz]=useState("");
     const [encodedAnswer, setEncodedAnswer] = useState('');
     const [podejrzyjZadanie, setPodejrzyjZadanie] = useState('');
+    const [napisNaKompilatorze,setNapisNaKompilatorze]=useState('package com.example.kompilatorapplication.kody;\npublic class Zadanie{\npublic static void main(String args[]){\n  }\n}');
 
     useEffect(() => {
         setPoprawnyWynik(wynikZadania.poprawnyWynik);
@@ -45,7 +46,7 @@ function ZadaniaDetails5({ zadania }) {
     const base_id = "/zadania/komentarze";
 
     useEffect(()=>{
-        setScript(wynikZadania.kategoria);
+        setScript(napisNaKompilatorze);
 
     },[])
     function handleKomentarze(event) {
@@ -116,12 +117,28 @@ function ZadaniaDetails5({ zadania }) {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
         })
+          
+
+    }
+    function handleWynik(event) {
+        event.preventDefault();
+        // Validate form fields
+        // Send a request to the server to compile
+        axios.post('http://localhost:8080/wynik', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
             .then(response => {
                 console.log(response);
                 console.log(response.data);
                 setoutput(response.data);
-                if (output.output === poprawnyWynik) {
+                console.log(output);
+                console.log(poprawnyWynik);
+                const poprawnyWynikObject = JSON.parse(poprawnyWynik);
+                if (JSON.stringify(output) === JSON.stringify(poprawnyWynikObject)) {
                     setIsActive(true);
+                    console.log("chuj");
                 }
 
 
@@ -152,9 +169,6 @@ function ZadaniaDetails5({ zadania }) {
         return (
             <Card
              key={zadanie.id} >
-                <CardBody>
-                    {zadanie.kategoria}
-                </CardBody>
                 <CardBody>
                    {zadanie.text}
                 </CardBody>
@@ -211,11 +225,31 @@ function ZadaniaDetails5({ zadania }) {
         }
     }
 
+    const baseee_id = "/zadania";
+
+    function sendWynikToDB(event){
+        event.preventDefault();
+        api.put(baseee_id + '/' + userId +'/wykonane'+ '/' + zadanieId1, {
+            wynik: output,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+            setoutput('');
+    }
+
     function Success({ output, wynikZadania }) {
+        const poprawnyWynikObject = JSON.parse(wynikZadania.poprawnyWynik);
         return (
             <div>
-                {output.output === wynikZadania.poprawnyWynik ? (
-                    <Button color="success">Poprawny Wynik, Kliknij by przesłać do bazy danych</Button>
+                {JSON.stringify(output) === JSON.stringify(poprawnyWynikObject) ? (
+                    <Button onClick={sendWynikToDB} className="mx-2 glowing-button" color="success">Poprawny Wynik, Kliknij by przesłać do bazy danych</Button>
                 ) : (
                     <Typography variant="h5">Błędny wynik</Typography>
                 )}
@@ -223,6 +257,7 @@ function ZadaniaDetails5({ zadania }) {
             </div>
         );
     }
+
 
     const handleButtonClick = () => {
         setShowAnswer(!showAnswer);
@@ -232,35 +267,40 @@ function ZadaniaDetails5({ zadania }) {
 
 return (
     <>
-        <Col sm="3">
+        
+        <Container>
+        <Col sm="9">
             &nbsp;
             &nbsp;
             <h1>Treść zadania</h1>
             <h1>{showitems}</h1>
         </Col>
-        <Container>
             <Row>
                 <Col sm="4">
-                 <Button color="primary" outline className="mx-2 glowing-button" onClick={handleButtonClick}>Podejrzyj odpowiedź</Button>
+                 <Button color="primary" className="mx-2 glowing-button" onClick={handleButtonClick}>Podejrzyj odpowiedź</Button>
       {showAnswer && (
-        <Card>
-          <CardBody>
-            <h1>{atob(podejrzyjZadanie)}</h1>
-          </CardBody>
+        <Card className="small-font">
+          <CardText className="small-font">
+            <p>{atob(podejrzyjZadanie)}</p>
+          </CardText>
         </Card>
       )}
                     <h1>{output.output}</h1>
                     <h1><Success output={output} wynikZadania={wynikZadania} /></h1>
-                    <p>Podpowiedź: Jeśli nie znasz składni Javascript użyj swojego ulubionego języka i użyj narzędzia, które zmieni Twój kod na kod Javascript</p>
+                    <p>Podpowiedź: Jeśli nie wiesz jak zacząć, zobacz "podejrzyj odpowiedź"</p>
                 </Col>
-                <div className="col-7">
-                    <h5 style={{marginLeft: "80px", color:"#a30b0d"}}>Nie usuwaj tego co jest napisane, tylko napisz swoją funkcje nad</h5>
+                <div className="col-7" >
+                    <h5 style={{marginLeft: "80px", color:"#a30b0d"}}>Nie usuwaj tego co jest napisane, tylko napisz swoją funkcje</h5>
+                    <h5 style={{marginLeft: "80px", color:"#a30b0d"}}>w klasie Zadanie</h5>
                     <form onSubmit={handleCompilation} className="compiler-form">
                         <textarea value={script} onChange={handleChange} onBlur={handleChange} />
                         <div className="language-select">
-                            <Typography variant="h5" color={green} sx={{ m: "10px 0 10px 0px" }} align="center">Napisz swoją odpowiedź w Javascript i kliknij Submit</Typography>
+                            <Typography variant="h5" color={green} sx={{ m: "10px 0 10px 0px" }} align="center">Napisz swoją odpowiedź w języku Java i kliknij "Submit", a następnie "Sprawdź wynik"</Typography>
                         </div>
                         <button type="submit">Submit</button>
+                    </form>
+                    <form onSubmit={handleWynik} className="col-sm-3" style={{marginLeft:'19vh'}}>
+                    <Button color="primary" type="submit">Sprawdź Wynik</Button>
                     </form>
                     &nbsp;
                 </div>

@@ -20,7 +20,11 @@ import { TokenContext } from "./loginContext/AuthProvider.js";
 import SidebarZadania from "./Components/SidebarZadania.js";
 import ZadaniaTablice from "./Components/ZadaniaTablice.js";
 import PrivateRoute from "./Components/PrivateRoute.js";
-
+import ZadaniaTabliceDwu from "./Components/ZadaniaTabliceDwu.js";
+import ZadaniaDynamiczne from "./Components/ZadaniaDynamiczne.js";
+import ZadaniaString from "./Components/ZadaniaString.js";
+import ZadaniaSortowanie from "./Components/ZadaniaSortowanie.js";
+import ZadaniaRekurencja from "./Components/ZadaniaRekurencja.js";
 
 function App() {
 
@@ -66,18 +70,24 @@ function App() {
           <Route path="/materialy" element={<Materiały kategorie={kategorie} setKategorie={setKategorie} />}></Route>
         <Route exact path="/admin" element={<PanelAdmina kategorie={kategorie} />}></Route>
        <Route path="zadania/1" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 1)} />} />
-          <Route path="zadania/902" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 902)} />} />
+          <Route path="zadania/2" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 2)} />} />
           <Route path="zadania/3" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 3)} />} />
           <Route path="zadania/4" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 4)} />} />
           <Route path="zadania/5" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 5)} />} />
-          <Route path="zadania/552" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 552)} />} />
-          <Route path="zadania/902" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 902)} />} />
-          <Route path="zadania/3" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 3)} />} />
-          <Route path="zadania/4" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 4)} />} />
-          <Route path="zadania/5" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 5)} />} />
+          <Route path="zadania/6" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 6)} />} />
+          <Route path="zadania/7" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 7)} />} />
+          <Route path="zadania/8" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 8)} />} />
+          <Route path="zadania/9" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 9)} />} />
+          <Route path="zadania/10" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 10)} />} />
+          <Route path="zadania/11" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 11)} />} />
+          <Route path="zadania/12" element={<ZadaniaDetails5 zadania={zadania.filter((zadania) => zadania.id === 12)} />} />
           <Route path="/tablice" element={<ZadaniaTablice zadania={zadania} />}/>
-          
-        </Routes>
+          <Route path="/tablicedwu" element={<ZadaniaTabliceDwu zadania={zadania}/>}/>
+          <Route path="/dynamiczne" element={<ZadaniaDynamiczne zadania={zadania}/>}/>
+          <Route path="/strings" element={<ZadaniaString zadania={zadania}/>}/>
+          <Route path="/sortowanie" element={<ZadaniaSortowanie zadania={zadania}/>}/>      
+          <Route path="/rekurencja" element={<ZadaniaRekurencja zadania={zadania}/>}/> 
+         </Routes>
         <Footer />
       </div>
     </BrowserRouter>

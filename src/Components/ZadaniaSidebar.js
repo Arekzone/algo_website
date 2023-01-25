@@ -108,18 +108,7 @@ function ZadaniaSidebar({zadania}){
 
                     {/* Menu items */}
                     <Box paddingLeft={isCollapsed? undefined:"10px"}>
-                    <Typography
-                         variant="h6"
-                         colors = {colors.grey[300]}
-                         sx={{m:"15px 0 5px 10px"}}
-                        >Przejdź do materiałów</Typography>
-                        <Item 
-                        title="Materialy"
-                        to="/materialy"
-                        icon={<HomeOutlinedIcon/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                        />
+                    
                           <Typography
                          variant="h6"
                          colors = {colors.grey[300]}
@@ -140,16 +129,16 @@ function ZadaniaSidebar({zadania}){
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="Linked List"
-                        to="/linkedlist"
+                        title="Tablice 2-D"
+                        to="/tablicedwu"
                         icon={<ReceiptOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
                         <Item 
-                        title="2-D Arrays"
-                        to="/2darrays"
-                        icon={<PersonOutlinedIcon/>}
+                        title="Dynamiczne"
+                        to="/dynamiczne"
+                        icon={<TimelineOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />
@@ -171,27 +160,6 @@ function ZadaniaSidebar({zadania}){
                         title="Rekurencja"
                         to="/rekurencja"
                         icon={<BarChartOutlinedIcon/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                        />
-                         <Item 
-                        title="Queue i Stack"
-                        to="/queueistack"
-                        icon={<BarChartOutlinedIcon/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                        />
-                        <Item 
-                        title="Backtracking"
-                        to="/backtracking"
-                        icon={<TimelineOutlinedIcon/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                        />
-                        <Item 
-                        title="Mapa"
-                        to="/geography"
-                        icon={<MapOutlinedIcon/>}
                         selected={selected}
                         setSelected={setSelected}
                         />

@@ -16,30 +16,14 @@ function Topbar(){
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
     return (
-    <Box display="flex" justifyContent="space-between" p={2} sx={{ml: 35}}>
-        {/* search bar */}
-        <Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px"></Box>
-        <InputBase sx={{ml: 2,flex: 1}} placeholder="Search"></InputBase>
-        <IconButton type="button" sx={{p: 1}}>
-            <SearchIcon/>
-        </IconButton>
-        <Box display="flex">
+    <Box display="flex" justifyContent="space-between" p={5} sx={{ml: 250}}>
+        
         <IconButton onClick={colorMode.toggleColorMode}>
             {theme.palette.mode==='dark'?(
         <DarkModeOutlinedIcon/>
             ):(<LightModeOutlinedIcon/>)}
         </IconButton>
-        <IconButton>
-            <SettingsOutlinedIcon/>
-        </IconButton>
-        <IconButton>
-            <PersonOutlinedIcon/>
-        </IconButton>
-        <IconButton>
-            <NotificationsOutlinedIcon/>
-        </IconButton>
         </Box>
-    </Box>
     
     )
 }

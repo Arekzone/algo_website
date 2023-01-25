@@ -80,7 +80,6 @@ function Header({ isOpen, setIsOpen }) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto ml-auto" navbar>
             <NavItem style={navItemStyle}> <Link to="/zadania"style={navLinkStyle}>Zadania</Link></NavItem>
-            <NavItem style={navItemStyle}> <Link to="/materialy"style={navLinkStyle}>Materiały</Link></NavItem>
             </Nav>
             <NavbarText>
             <Button color="primary" outline

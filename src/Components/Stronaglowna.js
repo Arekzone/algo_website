@@ -62,7 +62,7 @@ Przejdź do zadań i sprawdź się            </p>
       <CardText>
         Zadania wymagające znajomości ciągów tekstowych
       </CardText>
-      <Button color="primary" a href="/string">Zobacz zadania</Button>
+      <Button color="primary" a href="/strings">Zobacz zadania</Button>
     </Card>
   </Col>
   <Col sm="6">

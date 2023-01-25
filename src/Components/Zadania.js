@@ -1,6 +1,7 @@
 import { useState, useEffect, React } from "react";
 import { Card, CardBody, CardHeader, Container } from "reactstrap";
-import { Link } from 'react-router-dom';
+import { Link,Router } from 'react-router-dom';
+import {Grid} from '@mui/material';
 import Users from "./Users";
 import api from "../api/posts";
 import { RepeatOneSharp } from "@mui/icons-material";
@@ -64,7 +65,6 @@ function Zadania({ zadania }) {
             <Card className="my-2 justify-content-center"
                 color="secondary"
                 body
-                onClick={showSite}
                 key={zadanie.id} style={{ backgroundColor: zrobioneZadania.includes(zadanie.id) ? "green" : "secondary" }} >
                 <Link to={`/zadania/${zadanie.id}`} style={{ textDecoration: 'none' }}>
                     <CardBody tag="h3">{zadanie.nazwaZadania}</CardBody>
@@ -77,22 +77,39 @@ function Zadania({ zadania }) {
         <div>
             
             <Container>
-                <Row>
-                    <Col sm="4">
-                        <ZadaniaSidebar />
-                    </Col>
-                    <Col sm="4">
-                        
-                            <Typography variant="h5" align="center">Lista zadań</Typography>
-                       
-                        {showitems}
-                    </Col>
-                    <Col sm="4">
-                    <Typography variant="h5" align="center">kliknij na zadanie aby do niego przejść</Typography>
-                        {showitems}
-                    </Col>
-                </Row>
-            </Container>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <Typography variant="h5" align="center">Kliknij na zadanie aby do niego przejść</Typography>
+    </div>
+    <Row>
+        <Col xs="8" sm="4">
+            <ZadaniaSidebar />
+        </Col>
+        <Col xs="4" sm="8">
+    <Grid container spacing={3}>
+        <Grid item xs={6}>
+            {showitems[2]}
+            {showitems[4]}
+            {showitems[6]}
+            {showitems[8]}
+            {showitems[10]}
+            {showitems[0]}
+        </Grid>
+        <Grid item xs={6}>
+        {showitems[5]}
+            {showitems[1]}
+            {showitems[3]}
+            {showitems[7]}
+            {showitems[9]}
+            {showitems[11]}
+        </Grid>
+        &nbsp;
+    </Grid>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+</Col>
+    </Row>
+</Container>
         </div>
     )
 }

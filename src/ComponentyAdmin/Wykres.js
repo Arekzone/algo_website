@@ -1,121 +1,46 @@
 import {useTheme} from "@mui/material";
 import {ResponsiveBar} from "@nivo/bar";
 import {tokens} from "../scenes/theme";
+import {useState,useEffect} from "react";
+import api from "../api/posts";
 
 function Wykres(){
     const theme = useTheme();
     const colors=tokens(theme.palette.mode);
-const data = [
-    {
-      "country": "AD",
-      "hot dog": 92,
-      "hot dogColor": "hsl(350, 70%, 50%)",
-      "burger": 171,
-      "burgerColor": "hsl(201, 70%, 50%)",
-      "sandwich": 74,
-      "sandwichColor": "hsl(135, 70%, 50%)",
-      "kebab": 107,
-      "kebabColor": "hsl(189, 70%, 50%)",
-      "fries": 164,
-      "friesColor": "hsl(180, 70%, 50%)",
-      "donut": 63,
-      "donutColor": "hsl(91, 70%, 50%)"
-    },
-    {
-      "country": "AE",
-      "hot dog": 36,
-      "hot dogColor": "hsl(80, 70%, 50%)",
-      "burger": 45,
-      "burgerColor": "hsl(9, 70%, 50%)",
-      "sandwich": 89,
-      "sandwichColor": "hsl(139, 70%, 50%)",
-      "kebab": 200,
-      "kebabColor": "hsl(341, 70%, 50%)",
-      "fries": 50,
-      "friesColor": "hsl(169, 70%, 50%)",
-      "donut": 131,
-      "donutColor": "hsl(246, 70%, 50%)"
-    },
-    {
-      "country": "AF",
-      "hot dog": 73,
-      "hot dogColor": "hsl(35, 70%, 50%)",
-      "burger": 8,
-      "burgerColor": "hsl(342, 70%, 50%)",
-      "sandwich": 110,
-      "sandwichColor": "hsl(169, 70%, 50%)",
-      "kebab": 49,
-      "kebabColor": "hsl(194, 70%, 50%)",
-      "fries": 3,
-      "friesColor": "hsl(102, 70%, 50%)",
-      "donut": 31,
-      "donutColor": "hsl(78, 70%, 50%)"
-    },
-    {
-      "country": "AG",
-      "hot dog": 148,
-      "hot dogColor": "hsl(318, 70%, 50%)",
-      "burger": 35,
-      "burgerColor": "hsl(70, 70%, 50%)",
-      "sandwich": 120,
-      "sandwichColor": "hsl(244, 70%, 50%)",
-      "kebab": 73,
-      "kebabColor": "hsl(153, 70%, 50%)",
-      "fries": 20,
-      "friesColor": "hsl(53, 70%, 50%)",
-      "donut": 192,
-      "donutColor": "hsl(216, 70%, 50%)"
-    },
-    {
-      "country": "AI",
-      "hot dog": 185,
-      "hot dogColor": "hsl(333, 70%, 50%)",
-      "burger": 25,
-      "burgerColor": "hsl(287, 70%, 50%)",
-      "sandwich": 34,
-      "sandwichColor": "hsl(126, 70%, 50%)",
-      "kebab": 106,
-      "kebabColor": "hsl(231, 70%, 50%)",
-      "fries": 129,
-      "friesColor": "hsl(172, 70%, 50%)",
-      "donut": 54,
-      "donutColor": "hsl(246, 70%, 50%)"
-    },
-    {
-      "country": "AL",
-      "hot dog": 146,
-      "hot dogColor": "hsl(37, 70%, 50%)",
-      "burger": 8,
-      "burgerColor": "hsl(360, 70%, 50%)",
-      "sandwich": 24,
-      "sandwichColor": "hsl(324, 70%, 50%)",
-      "kebab": 199,
-      "kebabColor": "hsl(9, 70%, 50%)",
-      "fries": 78,
-      "friesColor": "hsl(105, 70%, 50%)",
-      "donut": 189,
-      "donutColor": "hsl(59, 70%, 50%)"
-    },
-    {
-      "country": "AM",
-      "hot dog": 64,
-      "hot dogColor": "hsl(235, 70%, 50%)",
-      "burger": 24,
-      "burgerColor": "hsl(97, 70%, 50%)",
-      "sandwich": 42,
-      "sandwichColor": "hsl(358, 70%, 50%)",
-      "kebab": 119,
-      "kebabColor": "hsl(309, 70%, 50%)",
-      "fries": 95,
-      "friesColor": "hsl(53, 70%, 50%)",
-      "donut": 67,
-      "donutColor": "hsl(217, 70%, 50%)"
-    }
-  ];
-    //zrobic UseEffect by pobrac dane z najwiecej wykonanymi zadaniami
+    const [datajson,setData]=useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await api.get("/zadania/mostpopular", {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            const data2 = response.data;
+            const jsonData = JSON.stringify(data2);
+            const parseData = JSON.parse(jsonData);
+            setData(parseData);
+
+
+        } catch (err) {
+            console.error(err);
+
+        }
+    };
+    fetchData();
+
+}, []);
+const hexChars = "23456789ABD";
+const getRandomColor = () =>
+  `#${Array.from({ length: 6 })
+    .map(() => hexChars[Math.floor(Math.random() * 11)])
+    .join("")}`;
+    
     return(
     <ResponsiveBar
-    data={data}
+    data = {datajson}
+    
     theme={{
         axis: {
             domain:{
@@ -149,19 +74,14 @@ const data = [
     width={1000}
     height={700}
     keys={[
-        'hot dog',
-        'burger',
-        'sandwich',
-        'kebab',
-        'fries',
-        'donut'
+        'wynik_count'
     ]}
-    indexBy="country"
+    indexBy="zadanie_id"
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     padding={0.3}
     valueScale={{ type: 'linear' }}
     indexScale={{ type: 'band', round: true }}
-    colors={{ scheme: 'nivo' }}
+    colors={getRandomColor}
     defs={[
         {
             id: 'dots',
@@ -182,36 +102,14 @@ const data = [
             spacing: 10
         }
     ]}
-    fill={[
-        {
-            match: {
-                id: 'fries'
-            },
-            id: 'dots'
-        },
-        {
-            match: {
-                id: 'sandwich'
-            },
-            id: 'lines'
-        }
-    ]}
-    borderColor={{
-        from: 'color',
-        modifiers: [
-            [
-                'darker',
-                1.6
-            ]
-        ]
-    }}
+   
     axisTop={null}
     axisRight={null}
     axisBottom={{
-        tickSize: 5,
+        tickSize: 4,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'country',
+        legend: 'zadanie_id',
         legendPosition: 'middle',
         legendOffset: 32
     }}
@@ -219,7 +117,7 @@ const data = [
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'food',
+        legend: 'liczba poprawnych wyników',
         legendPosition: 'middle',
         legendOffset: -40
     }}
